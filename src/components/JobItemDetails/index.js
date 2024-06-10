@@ -140,9 +140,9 @@ class JobItemDetails extends Component {
             />
           </div>
         </div>
-        <div>
+        <div className="jobdesc-con1">
           <h1>Similar Jobs</h1>
-          <ul>
+          <ul className="jobdesc-ul2">
             {itemData.similarJobs.map(data => (
               <SimilarProducts item={data} key={data.id} />
             ))}

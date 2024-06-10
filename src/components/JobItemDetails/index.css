@@ -106,7 +106,19 @@
   width: 70%;
 }
 
-.jobdesc-con4-in2{
+.jobdesc-con4-in2 {
   width: 30%;
   height: 35vh;
+}
+
+.jobdesc-con1 {
+  padding: 10px;
+}
+
+.jobdesc-ul2 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  list-style-type: none;
+  padding-left: 0px;
 }

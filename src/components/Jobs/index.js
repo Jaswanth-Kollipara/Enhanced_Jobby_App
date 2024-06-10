@@ -28,6 +28,29 @@ const employmentTypesList = [
   },
 ]
 
+const locationTypesList = [
+  {
+    label: 'Hyderabad',
+    locationTypeId: 'Hyderabad',
+  },
+  {
+    label: 'Bangalore',
+    locationTypeId: 'Bangalore',
+  },
+  {
+    label: 'Chennai',
+    locationTypeId: 'Chennai',
+  },
+  {
+    label: 'Delhi',
+    locationTypeId: 'Delhi',
+  },
+  {
+    label: 'Mumbai',
+    locationTypeId: 'Mumbai',
+  },
+]
+
 const salaryRangesList = [
   {
     salaryRangeId: '1000000',
@@ -67,6 +90,7 @@ class Jobs extends Component {
     profileImageUrl: '',
     shortBio: '',
     salary: '',
+    location: [],
     employee: [],
     jobsList: {},
     apiStatus: apiStatusConstants.initial,
@@ -114,9 +138,11 @@ class Jobs extends Component {
   getJobs = async () => {
     this.setState({apiStatus: apiStatusConstants.inProgress})
     const jwtToken = Cookies.get('jwt_token')
-    const {employee, salary, searchInput} = this.state
+    const {employee, salary, searchInput, location} = this.state
     const employeeProp = employee.join(',')
-    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeProp}&minimum_package=${salary}&search=${searchInput}`
+    const locationProp = location.join(',')
+    console.log(locationProp)
+    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeProp}&minimum_package=${salary}&locations=${locationProp}&search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -259,6 +285,21 @@ class Jobs extends Component {
     }
   }
 
+  changeLocation = locationTypeId => {
+    const {location} = this.state
+    if (location.includes(locationTypeId)) {
+      const updatedData = location.filter(data => data !== locationTypeId)
+      this.setState({location: updatedData}, this.getJobs)
+    } else {
+      this.setState(
+        prevState => ({
+          location: [...prevState.location, locationTypeId],
+        }),
+        this.getJobs,
+      )
+    }
+  }
+
   changeSalary = salaryRangeId => {
     this.setState({salary: salaryRangeId}, this.getJobs)
   }
@@ -274,8 +315,10 @@ class Jobs extends Component {
             <FiltersGroup
               employmentType={employmentTypesList}
               salaryRange={salaryRangesList}
+              locationType={locationTypesList}
               changeType={this.changeType}
               changeSalary={this.changeSalary}
+              changeLocation={this.changeLocation}
             />
           </div>
           <div>
