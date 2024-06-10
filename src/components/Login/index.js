@@ -63,6 +63,7 @@ class Login extends Component {
         <label className="input-label" htmlFor="password">
           PASSWORD
         </label>
+        <br />
         <input
           type="password"
           id="password"
@@ -79,6 +80,7 @@ class Login extends Component {
     return (
       <>
         <label htmlFor="username">USERNAME</label>
+        <br />
         <input
           type="text"
           id="username"
@@ -97,17 +99,21 @@ class Login extends Component {
       return <Redirect to="/" />
     }
     return (
-      <div className="login-form-container">
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
-          alt="website logo"
-        />
-        <form className="form-container" onSubmit={this.submitForm}>
-          <div>{this.renderUsernameField()}</div>
-          <div>{this.renderPasswordField()}</div>
-          <button type="submit">Login</button>
-          {showSubmitError && <p>*{errorMsg}</p>}
-        </form>
+      <div className="login-con">
+        <div className="login-form-container">
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+            alt="website logo"
+          />
+          <form className="form-container" onSubmit={this.submitForm}>
+            <div>{this.renderUsernameField()}</div>
+            <div>{this.renderPasswordField()}</div>
+            <button className="login-btn" type="submit">
+              Login
+            </button>
+            {showSubmitError && <p className="login-err">*{errorMsg}</p>}
+          </form>
+        </div>
       </div>
     )
   }
